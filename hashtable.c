@@ -1,7 +1,7 @@
 #include "hashtable.h"
 #pragma region Variables
 static u_int32_t size = 0;
-#define constTableLength 100
+#define constTableLength 5
 const u_int32_t constStringLenght = 100;
 #pragma endregion
 #pragma region Structs
@@ -31,7 +31,7 @@ static u_int32_t HashDBJ2(char *str)
 }
 static u_int32_t GetIndex(char *str)
 {
-    return HashDBJ2(str) % constTableLength - 1;
+    return HashDBJ2(str) % constTableLength;
 }
 /// @brief Traverses the nodes untill the Value is found or we have reached the end
 /// @param key
@@ -48,8 +48,8 @@ static char *GetNextValueRecursively(char *key, Node *node)
 }
 static void Put(char *key, char *value, Node *node)
 {
-    my_memcpy(node->keyValuePair.key, key, 100);
-    my_memcpy(node->keyValuePair.value, value, 100);
+    my_strcpy(node->keyValuePair.key, key);
+    my_strcpy(node->keyValuePair.value, value);
 }
 /// @brief Traverses the nodes untill the next node is empty, Puts a new Node there
 /// @param key
@@ -79,10 +79,10 @@ void hash_Put(char *key, char *value)
 {
     u_int32_t index = GetIndex(key);
 
-    if (my_strcomp(hashtable[index].keyValuePair.key, ""))
+    if (hashtable[index].keyValuePair.key[0] == '\0')
     {
-        my_memcpy(hashtable[index].keyValuePair.key, key, constStringLenght);
-        my_memcpy(hashtable[index].keyValuePair.value, value, constStringLenght);
+        my_strcpy(hashtable[index].keyValuePair.key, key);
+        my_strcpy(hashtable[index].keyValuePair.value, value);
     }
     else
     {
@@ -99,7 +99,7 @@ char *hash_GetValue(char *key)
 {
     u_int32_t index = GetIndex(key);
 
-    if (my_strcomp(hashtable[index].keyValuePair.key, "")) // TODO test if empty or null prt
+    if (hashtable[index].keyValuePair.key[0] == '\0')
         return NULL;
     else if (my_strcomp(hashtable[index].keyValuePair.key, key))
         return hashtable[index].keyValuePair.value;
