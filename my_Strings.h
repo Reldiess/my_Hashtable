@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void *my_memcpy(void *dest, const void *src, size_t n);
+void *my_strcpy(void *dest, const void *src);
 
 bool my_strcomp(char *value1, char *value2);
 
