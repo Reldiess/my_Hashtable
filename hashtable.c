@@ -35,7 +35,7 @@ static u_int32_t GetIndex(char *str)
 }
 /// @brief Traverses the nodes untill the Value is found or we have reached the end
 /// @param key
-/// @param Node
+/// @param node
 /// @return Value if found, else NULL
 static char *GetNextValueRecursively(char *key, Node *node)
 {
