@@ -97,7 +97,7 @@ void hash_Put(char *key, char *value)
 /// @return Value if found else NULL
 char *hash_GetValue(char *key)
 {
-    u_int32_t index = GetIndex(key);
+    const u_int32_t index = GetIndex(key);
 
     if (hashtable[index].keyValuePair.key[0] == '\0')
         return NULL;
